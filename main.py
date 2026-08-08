@@ -3,7 +3,9 @@ from checks.access_keys import check_access_keys
 from checks.password_policy import check_password_policy
 from checks.policies import check_wildcard_permissions
 from checks.inactive_users import check_inactive_users
+
 from reports.json_report import generate_json_report
+from reports.csv_report import generate_csv_report
 
 
 def main():
@@ -133,10 +135,19 @@ def main():
     # Generate JSON Report
     print("\nGenerating JSON security report...")
 
-    report_file = generate_json_report(all_findings)
+    json_file = generate_json_report(all_findings)
 
-    print(f"JSON report generated: {report_file}")
-    print(f"Total findings: {len(all_findings)}")
+    print(f"JSON report generated: {json_file}")
+
+    # Generate CSV Report
+    print("\nGenerating CSV security report...")
+
+    csv_file = generate_csv_report(all_findings)
+
+    print(f"CSV report generated: {csv_file}")
+
+    # Final Summary
+    print(f"\nTotal findings: {len(all_findings)}")
 
 
 if __name__ == "__main__":
