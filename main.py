@@ -3,6 +3,7 @@ from checks.access_keys import check_access_keys
 from checks.password_policy import check_password_policy
 from checks.policies import check_wildcard_permissions
 from checks.inactive_users import check_inactive_users
+from reports.json_report import generate_json_report
 
 
 def main():
@@ -10,10 +11,14 @@ def main():
     print("=" * 30)
     print()
 
-    #MFA Check
+    # Store findings from every security check
+    all_findings = []
+
+    # MFA Check
     print("Running MFA security check...")
-    
+
     findings = check_users_without_mfa()
+    all_findings.extend(findings)
 
     print()
 
@@ -33,7 +38,9 @@ def main():
 
     # Access Key Check
     print("\nRunning access key security check...")
+
     access_key_findings = check_access_keys()
+    all_findings.extend(access_key_findings)
 
     if access_key_findings:
         print(f"\nFound {len(access_key_findings)} access key issue(s):")
@@ -52,7 +59,9 @@ def main():
 
     # Password Policy Check
     print("\nRunning password policy security check...")
+
     password_policy_findings = check_password_policy()
+    all_findings.extend(password_policy_findings)
 
     if password_policy_findings:
         print(
@@ -63,21 +72,24 @@ def main():
         for finding in password_policy_findings:
             print(f"\nSeverity       : {finding['severity']}")
             print(f"Check          : {finding['check']}")
-            print(f"Scope          : {finding['user']}")
+            print(f"Scope          : {finding['scope']}")
             print(f"Finding        : {finding['finding']}")
             print(f"Recommendation : {finding['recommendation']}")
             print("-" * 50)
     else:
         print("\nNo password policy issues found.")
 
-
     # Wildcard Permissions Check
     print("\nRunning wildcard permission security check...")
 
     policy_findings = check_wildcard_permissions()
+    all_findings.extend(policy_findings)
 
     if policy_findings:
-        print(f"\nFound {len(policy_findings)} wildcard permission issue(s):")
+        print(
+            f"\nFound {len(policy_findings)} "
+            "wildcard permission issue(s):"
+        )
 
         for finding in policy_findings:
             print(f"\nSeverity       : {finding['severity']}")
@@ -94,10 +106,12 @@ def main():
     print("\nRunning inactive user security check...")
 
     inactive_findings = check_inactive_users()
+    all_findings.extend(inactive_findings)
 
     if inactive_findings:
         print(
-            f"\nFound {len(inactive_findings)} inactive user issue(s):"
+            f"\nFound {len(inactive_findings)} "
+            "inactive user issue(s):"
         )
 
         for finding in inactive_findings:
@@ -115,6 +129,14 @@ def main():
 
     else:
         print("\nNo inactive user issues found.")
+
+    # Generate JSON Report
+    print("\nGenerating JSON security report...")
+
+    report_file = generate_json_report(all_findings)
+
+    print(f"JSON report generated: {report_file}")
+    print(f"Total findings: {len(all_findings)}")
 
 
 if __name__ == "__main__":

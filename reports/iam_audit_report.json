@@ -1,0 +1,29 @@
+{
+    "report_name": "AWS IAM Security Audit Report",
+    "generated_at": "2026-08-08T13:15:42.141050+00:00",
+    "aws_account": "123456789012",
+    "total_findings": 3,
+    "findings": [
+        {
+            "severity": "HIGH",
+            "check": "MFA",
+            "user": "admin-darshan",
+            "finding": "User does not have MFA enabled",
+            "recommendation": "Enable MFA for this IAM user"
+        },
+        {
+            "severity": "HIGH",
+            "check": "MFA",
+            "user": "iam-auditor",
+            "finding": "User does not have MFA enabled",
+            "recommendation": "Enable MFA for this IAM user"
+        },
+        {
+            "severity": "MEDIUM",
+            "check": "Password Policy",
+            "scope": "ACCOUNT",
+            "finding": "No IAM password policy is configured",
+            "recommendation": "Configure a strong IAM password policy"
+        }
+    ]
+}

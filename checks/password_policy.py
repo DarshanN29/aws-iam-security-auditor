@@ -23,7 +23,7 @@ def check_password_policy():
         findings.append({
             "severity": "MEDIUM",
             "check": "Password Policy",
-            "user": "ACCOUNT",
+            "scope": "ACCOUNT",
             "finding": "No IAM password policy is configured",
             "recommendation": "Configure a strong IAM password policy",
         })
@@ -34,7 +34,7 @@ def check_password_policy():
         findings.append({
             "severity": "MEDIUM",
             "check": "Password Policy",
-            "user": "ACCOUNT",
+            "scope": "ACCOUNT",
             "finding": (
                 f"Minimum password length is "
                 f"{policy.get('MinimumPasswordLength', 0)}"
@@ -49,7 +49,7 @@ def check_password_policy():
         findings.append({
             "severity": "MEDIUM",
             "check": "Password Policy",
-            "user": "ACCOUNT",
+            "scope": "ACCOUNT",
             "finding": "Uppercase characters are not required",
             "recommendation": "Require uppercase characters in passwords",
         })
@@ -58,7 +58,7 @@ def check_password_policy():
         findings.append({
             "severity": "MEDIUM",
             "check": "Password Policy",
-            "user": "ACCOUNT",
+            "scope": "ACCOUNT",
             "finding": "Lowercase characters are not required",
             "recommendation": "Require lowercase characters in passwords",
         })
@@ -67,7 +67,7 @@ def check_password_policy():
         findings.append({
             "severity": "MEDIUM",
             "check": "Password Policy",
-            "user": "ACCOUNT",
+            "scope": "ACCOUNT",
             "finding": "Numbers are not required",
             "recommendation": "Require numbers in passwords",
         })
@@ -76,7 +76,7 @@ def check_password_policy():
         findings.append({
             "severity": "MEDIUM",
             "check": "Password Policy",
-            "user": "ACCOUNT",
+            "scope": "ACCOUNT",
             "finding": "Symbols are not required",
             "recommendation": "Require symbols in passwords",
         })
@@ -85,7 +85,7 @@ def check_password_policy():
         findings.append({
             "severity": "MEDIUM",
             "check": "Password Policy",
-            "user": "ACCOUNT",
+            "scope": "ACCOUNT",
             "finding": "Password expiration is disabled",
             "recommendation": (
                 f"Configure password expiration within "
@@ -97,7 +97,7 @@ def check_password_policy():
         findings.append({
             "severity": "MEDIUM",
             "check": "Password Policy",
-            "user": "ACCOUNT",
+            "scope": "ACCOUNT",
             "finding": (
                 f"Maximum password age is "
                 f"{policy['MaxPasswordAge']} days"
@@ -115,7 +115,7 @@ def check_password_policy():
         findings.append({
             "severity": "MEDIUM",
             "check": "Password Policy",
-            "user": "ACCOUNT",
+            "scope": "ACCOUNT",
             "finding": (
                 f"Password reuse prevention is set to "
                 f"{policy.get('PasswordReusePrevention', 0)}"
