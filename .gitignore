@@ -18,3 +18,7 @@ __pycache__/
 # Operating System Files
 .DS_Store
 Thumbs.db
+
+# Generated audit reports
+reports/iam_audit_report.json
+reports/iam_audit_report.csv
