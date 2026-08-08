@@ -2,6 +2,7 @@ from checks.mfa_check import check_users_without_mfa
 from checks.access_keys import check_access_keys
 from checks.password_policy import check_password_policy
 from checks.policies import check_wildcard_permissions
+from checks.inactive_users import check_inactive_users
 
 
 def main():
@@ -88,6 +89,32 @@ def main():
             print("-" * 50)
     else:
         print("\nNo wildcard permission issues found.")
+
+    # Inactive User Check
+    print("\nRunning inactive user security check...")
+
+    inactive_findings = check_inactive_users()
+
+    if inactive_findings:
+        print(
+            f"\nFound {len(inactive_findings)} inactive user issue(s):"
+        )
+
+        for finding in inactive_findings:
+            print(f"\nSeverity       : {finding['severity']}")
+            print(f"Check          : {finding['check']}")
+            print(f"User           : {finding['user']}")
+            print(f"Finding        : {finding['finding']}")
+            print(f"Recommendation : {finding['recommendation']}")
+
+            if "last_activity" in finding:
+                print(f"Last Activity  : {finding['last_activity']}")
+                print(f"Inactive Days  : {finding['age_days']}")
+
+            print("-" * 50)
+
+    else:
+        print("\nNo inactive user issues found.")
 
 
 if __name__ == "__main__":
